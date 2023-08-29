@@ -12,6 +12,7 @@ const schemas = {
         ),
     }),
   }),
+ 
 
   logoutSchema: yup.object({
     body: yup.object({

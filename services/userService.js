@@ -8,6 +8,15 @@ const getUserFromId = async(userId) =>{
     return user;
 }
 
+const newPost = async(userId) =>{
+    const user = await UserModel.findById(userId);
+    if(!user)
+        throw new ApiError("Invaid User Id")
+    return user;
+}
+
+
 export {
-    getUserFromId
+    getUserFromId,
+    newPost
 }

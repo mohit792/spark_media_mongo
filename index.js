@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import logger from "./config/logger.js";
 import app from "./app.js";
-  
+import './models/index.js'
 dotenv.config();
 
 const CONNECTION_URL = process.env.CONNECTION_URL;

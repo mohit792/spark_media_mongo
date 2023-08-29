@@ -30,7 +30,6 @@
       email: email.toLowerCase(),
     })
     .lean();
-  
     if (!user)
       throw new APIError(httpStatus.BAD_REQUEST, 'invalid credentials');
   

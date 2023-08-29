@@ -16,4 +16,28 @@ const router = express.Router();
     controller.getUserInfo
   );
 
+  router
+  .route('/post')
+  .post(trimRequest.all,isActiveUser, validate(schemas.postSchema), controller.newPost);
+
+  router
+  .route('/getPosts')
+  .get(trimRequest.all,isActiveUser, controller.getPost);
+
+  router
+  .route('/likePost')
+  .post(trimRequest.all,isActiveUser, validate(schemas.likeSchema) ,  controller.likePost);
+  
+  router
+  .route('/newComment')
+  .post(trimRequest.all,isActiveUser, validate(schemas.newCommentSchema) ,  controller.newComment);
+  
+  router
+  .route('/likeComment')
+  .post(trimRequest.all,isActiveUser, validate(schemas.likeCommentSchema) ,  controller.likeComment);
+
+
+
+
+
 export default router;

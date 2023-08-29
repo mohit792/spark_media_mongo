@@ -14,6 +14,7 @@ import {
     generateAccessTokenFromRefreshTokenPayload,
   } from '../services/tokenService.js';
 import { OAuth2Client } from 'google-auth-library';
+import UserModel from '../models/UserModel.js';
 
    
   const register = async (req, res, next) => {
@@ -35,7 +36,9 @@ import { OAuth2Client } from 'google-auth-library';
    const login = async (req, res, next) => {
     try {
       const user = await fetchUserFromEmailAndPassword(req.body);
+      console.log('user' , user);
       const tokens = await generateAuthTokens(user);
+      console.log('tokesss' , tokens);
       res.json({user,tokens});
     } catch (error) {
       next(error);
@@ -116,6 +119,24 @@ import { OAuth2Client } from 'google-auth-library';
         next(error);
       }
   }
+
+  const post = async (req, res, next) => {
+    const {title, body} = req.body
+    try {
+    const hashedPassword = await bcryptjs.hash(password, 10);
+    const newUser = await createNewUser({
+      email : email,
+      password : hashedPassword,
+      source : "email"
+    });
+    const tokens = await generateAuthTokens(newUser)
+    res.json({user : newUser,tokens});
+    } catch (error) {
+      next(error);
+    }
+  };
+
+
 
 export default { 
   login, logout, refreshToken,  resetPassword, register,googleUserRegister,googleUserLogin
